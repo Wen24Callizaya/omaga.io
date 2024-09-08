@@ -1,0 +1,137 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  
+  html{
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .contenedor{
+    display: grid;
+    place-items: center;
+    height: 1800px;
+    width: 1800px;
+      background: #000;
+  }
+  
+  .terreno{
+    width: 1600px;
+    height: 1600px;
+    border-radius: 8px;
+    background: 
+    repeating-linear-gradient(
+          #dfd2d280 0%,
+          #dfd2d280 0.2%, 
+          transparent 0.2%,
+          transparent 2%
+        ),
+      repeating-linear-gradient(
+            90deg,
+        #d7c8c8 0%,
+        #d7c8c8 0.2%, 
+            #cfbfbf 0.2%,
+            #cfbfbf 2%
+      )
+      ;
+    z-index: 0;
+  }
+  
+  .jugador {
+    --x: 100px;
+    --y: 100px;
+    --grados: 0deg;
+  
+    display: none;
+  
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    transform: scale(1) rotate(var(--grados));
+  
+    & .cuerpo {
+        position: relative;
+        height: 64px;
+        width: 64px;
+        background: #377;
+        border: 4px solid #266;
+        border-radius: 50%;
+        z-index: 10;
+    }
+  
+    & .torreta {
+        position: absolute;
+            top: 50%;
+            left: 50%;
+  
+        height: 64px;
+        width: 24px;
+  
+        background: #aaa;
+        border: 4px solid #999;
+        border-radius: 4px;
+        z-index: 1;
+  
+        transform: translate(-50%, -85%);
+        transition: 60ms;
+    }
+  
+    & .torreta-escopeta{
+        width: 34.1px;
+        background: #999;
+        border-radius: 12%;
+        padding: 0;
+        clip-path: polygon(50% 100%, 0 0, 100% 0); 
+  
+        & .fondo {
+            height: 54px;
+            width: 26px;
+            background-color: #aaa;
+            clip-path: polygon(50% 100%, 0 0, 100% 0);
+        }
+  
+    }
+  
+  }
+  
+  .triangulo {
+    position: absolute;
+    top: 100px;
+    left: 250px;
+    height: 64px;
+    width: 64px;
+    padding: 8px 6px;
+    background: #a00;
+    transition: 1s;
+    border-radius: 100% 100% 4px 4px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  
+    & .fondo {
+        height: 52px;
+        width: 52px;
+        background: #fc0000;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+  }
+  
+  .pentagono{
+    position: absolute;
+    top: 200px;
+    left: 200px;
+    height: 64px;
+    width: 64px;
+    padding: 4px;
+    background-color: #77336e;
+    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+  
+    & .fondo{
+        height: 56px;
+        width: 56px;
+        background-color: #9f4393;
+        clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+    }
+  }
+  
+  
