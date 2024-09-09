@@ -17,7 +17,19 @@ class Jugador {
         this.grados = 90;
         this.cadencia = 1;
 
-        this.eventosId = [];
+        this.activado = {
+            w: false,
+            s: false,
+            a: false,
+            d: false
+        }
+
+        this.registro = {
+            w: 0,
+            s: 0,
+            a: 0,
+            d: 0
+        }
 
         this.elemento.style.setProperty("display", "inline-block");
     }
@@ -65,8 +77,6 @@ class Jugador {
             () => this.mover({x: -this.velocidad, y: 0}),
             () => this.mover({x: this.velocidad, y: 0}),
         ][({W: 0, R: 1, A: 2, S: 3})[tecla]];
-
-
         
     }
 
@@ -79,82 +89,28 @@ class Jugador {
     }
 
     montarControladorTeclado() {
+
         let key = false;
         setInterval(() => {
             this.establecerRotacion(this.grados + 2 + this.grados / 250);
+            
             this.actualizarRotacion();
         }, 1000/60);
         
-        document.addEventListener("keydown", (event) => {
-            if(this.upEvent) return;
-            this.upEvent = true;
-            if(event.key != "w") return;
-            this.upEvent = setInterval((() => {
+        document.addEventListener("keydown", ({tecla: key}) => {
+            if(!this.activado[tecla]) return;
+
+            this.activado[tecla] = true;
+            this.registro[tecla] = setInterval((() => {
                 (() => this.mover({x: 0, y: -this.velocidad}))();
             }).bind(this), 1000/60);
         });
 
-        document.addEventListener("keyup", (event) => {
-            if(!this.upEvent) return;
-            if(this.upEvent) {
-                clearInterval(this.upEvent);
-                this.upEvent = 0;
-            }
-        })
+        document.addEventListener("keyup", ({tecla: key}) => {
+                clearInterval(this.registro[tecla]);
+                this.registro[tecla] = 0;
+         })
 
-        //--
-
-        document.addEventListener("keydown", (event) => {
-            if(this.downEvent) return;
-            this.downEvent = true;
-            if(event.key !== "r") return;
-            this.downEvent = setInterval((() => {
-                (() => this.mover({x: 0, y: this.velocidad}))();
-            }).bind(this), 1000/60);
-        });
-
-        document.addEventListener("keyup", (event) => {
-            if(!this.downEvent) return;
-            if(this.downEvent) {
-                clearInterval(this.downEvent);
-                this.downEvent = 0;
-            }
-        })
-
-        //--
-
-        document.addEventListener("keydown", (event) => {
-            if(this.leftEvent) return;
-            this.leftEvent = true;
-            if(event.key !== "a") return;
-            this.leftEvent = setInterval((() => {
-                (() => this.mover({x: -this.velocidad, y: 0}))();
-            }).bind(this), 1000/60);
-        });
-
-        document.addEventListener("keyup", (event) => {
-            if(this.leftEvent) {
-                clearInterval(this.leftEvent);
-                this.leftEvent = 0;
-            }
-        })
-
-        //--
-        
-        document.addEventListener("keydown", (event) => {
-            if(this.rightEvent) return;
-            if(event.key != "s") return;
-            this.rightEvent = setInterval((() => {
-                (() => this.mover({x: this.velocidad, y: 0}))();
-            }).bind(this), 1000/60);
-        });
-
-        document.addEventListener("keyup", (event) => {
-            if(this.rightEvent) {
-                clearInterval(this.rightEvent);
-                this.rightEvent = 0;
-            }
-        })
     }
 
     montarControladorRaton() {
