@@ -20,6 +20,7 @@ class Jugador {
         };
         console.log("elemento jugador");
 
+        this.nombre = localStorage.getItem("nombre");
         this.velocidad = 10;
         this.velocidadMaxima = 100;
         this.aceleracion = 0.5;
@@ -42,13 +43,6 @@ class Jugador {
 
         this.elemento.style.setProperty("display", "inline-block");
     }
-
-    tomarNombre(){
-        let nombre = document.querySelector(".entrada");
-        let nombreValor = nombre.value;
-        this.nombre = nombreValor;
-    }
-
 
 
     actualizarPosicion() {
@@ -189,12 +183,9 @@ class Terreno {
 
 const terreno = new Terreno();
 const jugador2 = new Jugador();
+const nombre = document.querySelector(".nombre-jugador");
 
-//document.querySelector(".boton-enviar").addEventListener("click", () => {
-    //jugador2.tomarNombre();
-    //alert("guardada con exito")
-//})
-
+nombre.textContent = jugador2.nombre;
 terreno.cargar([jugador2.elemento]);
 
 const coordenadas = {};
