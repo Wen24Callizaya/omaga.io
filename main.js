@@ -11,6 +11,7 @@ class Jugador {
         };
         console.log("elemento jugador");
 
+        this.nombre = localStorage.getItem("nombre");
         this.velocidad = 10;
         this.velocidadMaxima = 100;
         this.aceleracion = 0.5;
@@ -33,6 +34,7 @@ class Jugador {
 
         this.elemento.style.setProperty("display", "inline-block");
     }
+
 
     actualizarPosicion() {
         this.elemento.style.setProperty("--x", `${this.coordenadas.x}px`);
@@ -149,7 +151,9 @@ class Terreno {
 
 const terreno = new Terreno();
 const jugador2 = new Jugador();
+const nombre = document.querySelector(".nombre-jugador");
 
+nombre.textContent = jugador2.nombre;
 terreno.cargar([jugador2.elemento]);
 
 const coordenadas = {};
