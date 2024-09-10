@@ -1,12 +1,21 @@
+class Contador {
+
+    constructor() {
+        this.frames = 60;
+        this.omaga 
+    }
+
+}
+
 class Jugador {
 
     constructor() {
         const jugador = document.querySelector(".jugador");
-
+        this.nombre;
         this.elemento = jugador.cloneNode(true);
 
         this.coordenadas = {
-            x: 0,
+            x: 0, 
             y: 0
         };
         console.log("elemento jugador");
@@ -33,6 +42,14 @@ class Jugador {
 
         this.elemento.style.setProperty("display", "inline-block");
     }
+
+    tomarNombre(){
+        let nombre = document.querySelector(".entrada");
+        let nombreValor = nombre.value;
+        this.nombre = nombreValor;
+    }
+
+
 
     actualizarPosicion() {
         this.elemento.style.setProperty("--x", `${this.coordenadas.x}px`);
@@ -64,8 +81,29 @@ class Jugador {
     taclear() {
 
     }
+*/
 
-    apuntarRaton() {} */
+    diferenciar(coordenadas) {
+        return { x: this.coordenadas.x - coordenadas.x, y: this.coordenadas.y - coordenadas.y };
+    }
+
+    apuntarRaton({clientX: x, clientY: y}) {
+        this.apuntar({ coordenadas: {x, y} });
+    }
+
+    proximidad(grados) { 
+        return (this.grados + 180 > grados)? this.grados - (this.grados - grados) : this.grados + grados;
+    }
+
+    apuntar(entidad) {
+        const 
+            x = this.coordenadas.x - entidad.coordenadas.x,
+            y = this.coordenadas.y - entidad.coordenadas.y
+        
+            console.log(this.proximidad(Math.atan2(y, x) * 180/Math.PI));
+        this.establecerRotacion(this.proximidad(Math.atan2(y, x) * 180/Math.PI) - 90);
+        this.actualizarRotacion();
+    }
 
     controlarTeclado(evento) {
 
@@ -114,8 +152,10 @@ class Jugador {
     }
 
     montarControladorRaton() {
-        document.addEventListener("mousedown", this.controlarRaton);
-        document.addEventListenir("mouseclick", this.controlarRatonClick);
+        document.addEventListener("mousemove", (event) => {
+            console.log("owo")
+            this.apuntarRaton(event);
+        });
     }
 
     montarControladores() {
@@ -150,6 +190,11 @@ class Terreno {
 const terreno = new Terreno();
 const jugador2 = new Jugador();
 
+//document.querySelector(".boton-enviar").addEventListener("click", () => {
+    //jugador2.tomarNombre();
+    //alert("guardada con exito")
+//})
+
 terreno.cargar([jugador2.elemento]);
 
 const coordenadas = {};
@@ -159,8 +204,9 @@ console.log(terreno);
 
 jugador2.establecerCoordenadas(coordenadas);
 jugador2.actualizarPosicion();
-jugador2.montarControladorTeclado();
-jugador2.establecerRotacion(270);
-jugador2.actualizarRotacion();
+//jugador2.montarControladorTeclado();
+jugador2.montarControladorRaton();
+//jugador2.establecerRotacion(270);
+//jugador2.actualizarRotacion();
 
 console.log(jugador2);
