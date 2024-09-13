@@ -117,14 +117,18 @@ html{
 }
 
 .pentagono{
+  --x: 200px;
+  --y: 200px;
+  --grados: 200deg;
   position: absolute;
-  top: 200px;
-  left: 200px;
+  top: var(--y);
+  left: var(--x);
   height: 64px;
   width: 64px;
   padding: 4px;
   background-color: #77336e;
   clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+  transform: rotate(var(--grados));
 
   & .fondo{
       height: 56px;
