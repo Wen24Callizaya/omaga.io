@@ -179,3 +179,59 @@ html{
         place-items: center;
     }
 }
+
+.contenedor-armas{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 30vh;
+  width: 30vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+
+  & .armas{
+    border: 4px solid #635D5F;
+  }
+  & .twin{
+    overflow: hidden;
+    background:linear-gradient(
+      #91FAF5 0%,
+      #91FAF5 60%,
+      #80CEC0 60%,
+      #80CEC0 100%
+    );
+
+    & img{
+      height: 100vh;
+      width: 100vh;
+      object-fit: cover;
+      object-position: -20px -30px;
+    }
+  }
+  & .sniper{
+    background:linear-gradient(
+      #B6FB87 0%,
+      #B6FB87 60%,
+      #96CA80 60%,
+      #96CA80 100%
+    );
+  }
+  & .machine-gun{
+    background:linear-gradient(
+      #FE9196 0%,
+      #FE9196 60%,
+      #CD796F 60%,
+      #CD796F 100%
+    );
+  }
+  & .flank-guard{
+    background:linear-gradient(
+      #FAECA5 0%,
+      #FAECA5 60%,
+      #D3BD81 60%,
+      #D3BD81 100%
+    );
+  }
+}
