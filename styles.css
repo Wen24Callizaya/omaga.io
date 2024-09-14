@@ -1,8 +1,7 @@
 @font-face {
-    font-family: uvu;
-    src: url(carbono-pw/carbono_pw.ttf);
+    font-family: "Roboto";
+    src: url(multimedia/fuentes/roboto/Roboto-Black.ttf);
 }
-
 
 *{
     box-sizing: border-box;
@@ -53,14 +52,23 @@ body{
             border: 2px solid #1e6d7e;
             padding: 0 20px;
             height: 100%;
+            font-family: "Roboto";
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #fff+;
+            -webkit-text-stroke: 1.2px black;
         }
 
         & .boton-enviar{
             border: 2px solid #1e6d7e;
             border-radius: 3px;
-            font-size: 30px;
-            font-weight: bold;
-            color: #fafafa;
+            font-size: 25px;
+            -webkit-text-stroke: 1.2px black;
+            color: #fff; 
+            font-family: "Roboto";
+            font-weight: 800;
+            letter-spacing: -1px;
+          
             background:linear-gradient(
                 #0ea4cc 0%,
                 #0ea4cc 65%,

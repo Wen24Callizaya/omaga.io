@@ -9,52 +9,7 @@ class Contador {
 
 const GRIS = 0, VERDE = 1, ROJO = 2;
 
-class Entidad {
 
-    constructor(selector) {
-
-        this.elemento = document.querySelector(selector);
-        this.coordenadas = {
-            x: 0,
-            y: 0
-        };
-        this.grados = 0;
-        this.desplazamiento = 10;
-        this.vida = 0;
-        this.equipo = GRIS;
-        this.ataque = 0;
-        this.dimensiones = {
-            alto: 0,
-            ancho: 0
-        }
-
-    }
-
-    colicionar() {
-
-    }
-
-    posicionar() {
-
-    }
-
-    apuntar() {
-
-    }
-
-    avanzar() {
-
-    }
-
-    taclear() {
-
-    }
-
-    
-
-}
-
-class Traingulo extends Entidad
 
 class EntidadPuntaje extends Entidad {
 
@@ -464,9 +419,6 @@ const trianguloEnemigo = {
         else
             this.moverIzquierda();
             
-    }
-
-    moverIzquierda() {
     }
 
 }

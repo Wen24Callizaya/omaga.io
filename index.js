@@ -7,5 +7,4 @@ function tomarNombre (){
 const boton = document.querySelector(".boton-enviar");
 boton.addEventListener("click", () => {
     tomarNombre();
-    alert("si funciono pero algo mas...")
 });
