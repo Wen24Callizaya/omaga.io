@@ -10,7 +10,6 @@ class Contador {
 const GRIS = 0, VERDE = 1, ROJO = 2;
 
 
-
 class EntidadPuntaje extends Entidad {
 
     constructor(forma) {

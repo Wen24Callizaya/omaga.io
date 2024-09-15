@@ -3,11 +3,15 @@
     src: url(multimedia/fuentes/roboto/Roboto-Black.ttf);
 }
 
+@font-face {
+    font-family: "omaga";
+    src: url(multimedia/fuentes/comic_helvetic/ComicHelvetic_Heavy.otf);
+  }
+
 *{
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: uvu;
 }
 
 body{
@@ -24,57 +28,96 @@ body{
     justify-content: center;
     align-items: center;
     height: 100vh;
+    width: 100%;    
+}
+
+.contenedor-titulo {
+    min-height: 10vh;
+    height: 30vh;
     width: 100%;
 
-    & .nombre-juego{
-    font-size: 50px;
-    text-align: center;
-    }
-
-    & .contenedor-titulo{
-        min-height: 10vh;
-        height: 30vh;
+    & .imagen-titulo {
+        height: 100%;
         width: 100%;
-        & .imagen-titulo{
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            object-position: 45px;
-        }
+        object-fit: cover;
+        object-position: 45px;
     }
 
-    & .ingreso-nombre{
-        display: grid;
-        grid-template-columns: 3fr 1fr;
-        height: 8vh;
-        width: 30%;
-        & .entrada, .boton-enviar{
-            border: 2px solid #1e6d7e;
-            padding: 0 20px;
-            height: 100%;
-            font-family: "Roboto";
-            font-weight: 800;
-            letter-spacing: -1px;
-            color: #fff+;
-            -webkit-text-stroke: 1.2px black;
-        }
+}
+.ingreso-nombre {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    height: 8vh;
+    width: 50%;
+    max-width: 800px;
 
-        & .boton-enviar{
-            border: 2px solid #1e6d7e;
-            border-radius: 3px;
-            font-size: 25px;
-            -webkit-text-stroke: 1.2px black;
-            color: #fff; 
-            font-family: "Roboto";
-            font-weight: 800;
-            letter-spacing: -1px;
-          
-            background:linear-gradient(
-                #0ea4cc 0%,
-                #0ea4cc 65%,
-                #0f95ba 65%,
-                #0f95ba 100%
-            ) 
-        }
+    & .entrada,
+    .boton-enviar {    
+        padding: 0 20px;
+        height: 100%;
+        border: 4px solid #9f9f9f;
+        border-right: none;
+        font-family: "omaga";
+        border-radius: 10px;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        font-size: 20px;
     }
+
+    & .entrada::placeholder {
+        color: #bbbbbb;
+        transform: translateY(2px);
+    }
+
+    & .entrada:focus{
+        outline: none;
+    }
+
+    & .boton-enviar {
+        position: relative;
+        width: fit-content;
+        color: #fff;
+        padding: 0 30px;
+        font-weight: bolder;
+        text-shadow: 
+            #333 3px 3px,
+            #333 -3px 3px,
+            #333 -3px -3px,
+            #333 3px -3px,
+            #333 -3px 0px,
+            #333 3px 0px,
+            #333 0px 3px,
+            #333 0px -3px;
+            letter-spacing: 0.08ch;
+        border: 4px solid #1e6d7e;
+        border-radius: 10px;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        background: linear-gradient(
+            #0ea4cc 0%,
+            #0ea4cc 65%,
+            #0d96b9 65%,
+            #0d96b9 100%);
+
+        transition: all 0.5s ease;
+    }
+}
+
+.boton-enviar::after{
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: 0;
+    width: calc(100% + 8px);
+    height: 8vh;
+    border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+
+    transition: all 0.5s ease;
+}
+
+.boton-enviar:hover::after{
+    background-color: #ffffff15;   
 }

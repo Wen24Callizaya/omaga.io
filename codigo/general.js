@@ -59,4 +59,29 @@ class Util {
 
 }
 
+class Torreta {
+
+    constructor() {
+
+        this.elemento = document.querySelector(".torreta").cloneNode(true);
+
+
+    }
+
+}
+
+class TorretaBase {
+    
+    
+
+}
+
+class PantallaInicio {
+
+}
+
+class PantallaJuego {
+
+}
+
 export { Util };
