@@ -1,12 +1,18 @@
-import { Util } from "./configuradores.js";
+/* import { Util } from "./configuradores.js"; */
 
-class Entidad {
+const
+    GRIS = 0,
+    VERDE = 1,
+    ROJO = 2;
+
+export default class Entidad {
 
     constructor(selector) {
 
         this.elemento = document.querySelector(selector).cloneNode(true);
         
         this.grados = Math.random() * 360;
+
         this.coordenadas = {
             x: 0,
             y: 0
@@ -20,26 +26,22 @@ class Entidad {
         this.rotacion = 5;
 
         this.desplazamientoMaximo = 30;
-        this.aceleracion = 0.5;
+        this.aceleracion = 0.05;
         
         this.vida = 100;
         this.ataque = 20;
 
         this.equipo = GRIS;
 
-    }
-    __establecerCoordenadas(coordenadas) {
-        this.coordenadas.x = coordenadas.x;
-        this.coordenadas.y = coordenadas.y;
-    }
+        this.__actualizarCSS();
 
-    __establecerRotacion(grados) {
-        this.grados = grados;
     }
 
     __actualizarCSS() {
         this.elemento.style.setProperty("--x", `${this.coordenadas.x}px`);
         this.elemento.style.setProperty("--y", `${this.coordenadas.y}px`);
+        this.elemento.style.setProperty("--alto", `${this.dimensiones.alto}px`);
+        this.elemento.style.setProperty("--ancho", `${this.dimensiones.ancho}px`);
         this.elemento.style.setProperty("--grados", `${this.grados}deg`); 
     }
 
@@ -47,25 +49,31 @@ class Entidad {
         this.elemento.style.setProperty("display", "block");
     }
 
+    dimensionar(lado) {
+        this.dimensiones = {
+            ancho: lado,
+            alto: lado
+        };
+        this.__actualizarCSS();
+    }
+
     posicionar(coordenadas) {
         this.coordenadas = coordenadas;
         this.__actualizarCSS();
     }
     
-    mover(coordenadas) {
+    /* mover(coordenadas) {
         this.coordenadas = Util.redistribuirDesplazamiento(this, coordenadas);
         this.__actualizarCSS();
-    }
+    } */
 
     colicionar() {
 
     }
 
-
-
     rotar(grados) {
-        this.__establecerRotacion(this.grados + grados);
-        this.__aplicarRotacion();
+        this.grados += grados;
+        this.__actualizarCSS();
     }
 
     apuntar(coordenadas) {
@@ -87,7 +95,7 @@ class Entidad {
 
     }
 
-    actualizarRotacion() {
+/*     actualizarRotacion() {
         this.elemento.style.setProperty("--grados", `${this.grados}deg`);
     }
 
@@ -108,23 +116,6 @@ class Entidad {
         
         this.establecerRotacion(calculo);
         this.actualizarRotacion();
-    }
+    } */
     
 }
-
-class Triangulo {
-
-} // enemigo
-
-class Pentagono {
-
-} // enemigo
-
-class Circulo {
-
-} // 
-
-class Cuadrado {
-
-} //}
-export {  };
