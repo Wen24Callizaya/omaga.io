@@ -1,4 +1,4 @@
-/* import { Util } from "./configuradores.js"; */
+import Util from "./util.js";
 
 const
     GRIS = 0,
@@ -9,9 +9,10 @@ export default class Entidad {
 
     constructor(selector) {
 
-        this.elemento = document.querySelector(selector).cloneNode(true);
+        this.elemento = document.querySelector(selector).cloneNode(true);  
         
         this.grados = Math.random() * 360;
+        this.trayectoria = Math.random() * 360;
 
         this.coordenadas = {
             x: 0,
@@ -22,11 +23,13 @@ export default class Entidad {
             ancho: 0
         };
 
-        this.desplazamiento = 10;
+        this.desplazamiento = 0;
         this.rotacion = 5;
 
+        this.desplazamientoBase = 10;
         this.desplazamientoMaximo = 30;
-        this.aceleracion = 0.05;
+        this.aceleracion = 1.05;
+        this.desaceleracion = 0.80;
         
         this.vida = 100;
         this.ataque = 20;
@@ -34,6 +37,8 @@ export default class Entidad {
         this.equipo = GRIS;
 
         this.__actualizarCSS();
+
+        this.puntoColicion = null;
 
     }
 
@@ -62,17 +67,26 @@ export default class Entidad {
         this.__actualizarCSS();
     }
     
-    /* mover(coordenadas) {
-        this.coordenadas = Util.redistribuirDesplazamiento(this, coordenadas);
+    mover() {
+        if(this.desplazamiento == 0) this.desplazamiento = this.desplazamientoBase;
+        
+        this.coordenadas = Util.trayectoria(this);
+
+        if (this.desplazamiento <= this.desplazamientoMaximo) this.desplazamiento *= this.aceleracion;
+        
         this.__actualizarCSS();
-    } */
+    } // Mover, Desplazar, Transladar, Locomover, Trasnportar, Dirigir, Posicionar
+
+    establecer(objeto) {
+        for(let clave in objeto) this[clave] = objeto[clave]
+    }
 
     colicionar() {
 
     }
 
-    rotar(grados) {
-        this.grados += grados;
+    rotar(sentido) {
+        this.grados += this.rotacion * sentido;
         this.__actualizarCSS();
     }
 

@@ -1,4 +1,5 @@
 import Entidad from "../entidad.js";
+import Util from "../util.js";
 
 export default class Pentagono extends Entidad {
 
@@ -6,12 +7,17 @@ export default class Pentagono extends Entidad {
         super(".pentagono");
     }
 
-    dimensionar(lado) {
-        this.dimensiones = {
-            ancho: ((Math.sin(18 * Math.PI/180)) * lado + lado / 2) * 2,
-            alto: (Math.cos(18 * Math.PI/180)) * lado + (lado ** 2 - (lado / 2 + (Math.sin(18 * Math.PI/180)) * lado) ** 2) ** 0.5
-        };
+    __actualizarCSS() {
+        this.elemento.style.setProperty("--x", `${this.coordenadas.x}px`);
+        this.elemento.style.setProperty("--y", `${this.coordenadas.y}px`);
+        this.elemento.style.setProperty("--alto", `${this.dimensiones.alto}px`);
+        this.elemento.style.setProperty("--ancho", `${this.dimensiones.ancho}px`);
+        this.elemento.style.setProperty("--grados", `${this.grados}deg`); 
         this.elemento.style.setProperty("--diferencia", `-${this.dimensiones.ancho - this.dimensiones.alto}px`);
+    }
+
+    dimensionar(lado) {
+        this.dimensiones = Util.dimensionarPentagono(lado);
         this.__actualizarCSS();
     }
 

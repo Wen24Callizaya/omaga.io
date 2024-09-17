@@ -1,4 +1,4 @@
-import { Circulo } from "./entidad.js";
+import { Circulo } from "../entidad.js";
 
 class Jugador extends Circulo {
 
