@@ -2,7 +2,7 @@ import Escenario from "./codigo/escenario.js";
 import Pentagono from "./codigo/entidad/pentagono.js";
 
 const escenario = new Escenario();
-const cant = 1;
+const cant = 100;
 
 const pentagonos = [], direccionX = [], direccionY = [];
 
@@ -22,7 +22,7 @@ for(let i = 0; i < cant; i ++ ) {
     pentagonos.push(pentagono);
     direccionX[i] = Math.random() * 5;
     direccionY[i] = Math.random() * 5;
-}
+} 
 
 // -- ancho, alto y entidades del escenario
 escenario.dimensionar({ ancho: 12000, alto: 5000 });
@@ -44,11 +44,11 @@ setInterval(() => {
 setInterval(() => {
     pentagonos.map((pentagono, i) => {
         pentagono.rotar(1)
-        pentagono.mover();
-/*         pentagono.desplazamiento += pentagono.aceleracion;
+        // pentagono.mover();
+        pentagono.desplazamiento += pentagono.aceleracion;
         if(pentagono.desplazamiento >= pentagono.desplazamientoMaximo)
             pentagono.desplazamiento = pentagono.desplazamientoBase;
-        pentagono.posicionar({ x: pentagono.coordenadas.x + direccionX[i] - 2.5, y: pentagono.coordenadas.y + direccionY[i] - 2.5}); */
+        pentagono.posicionar({ x: pentagono.coordenadas.x + direccionX[i] - 2.5, y: pentagono.coordenadas.y + direccionY[i] - 2.5});
     });
 }, 1000/60);
 

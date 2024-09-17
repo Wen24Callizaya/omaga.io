@@ -26,14 +26,6 @@ export default class Util {
     }
 
     static trayectoria(entidad) {
-        // 
-        // 
-        
-        console.log({
-            resultado: (entidad.coordenadas.x + Util.seno(entidad.trayectoria) *  entidad.desplazamiento),
-            x: entidad.coordenadas.x,
-            suma: entiada
-        });
         return ({
             x: entidad.coordenadas.x + Util.seno(entidad.trayectoria) * entidad.desplazamiento,
             y: entidad.coordenadas.y + Util.coseno(entidad.trayectoria) * entidad.desplazamiento

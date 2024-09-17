@@ -22,8 +22,8 @@ export default class Escenario {
     }
 
     __actualizarCSS() {
-        this.escenario.style.setProperty("--alto", `${this.dimensiones.x}px`);
-        this.escenario.style.setProperty("--ancho", `${this.dimensiones.y}px`);
+        this.escenario.style.setProperty("--alto", `${this.dimensiones.alto}px`);
+        this.escenario.style.setProperty("--ancho", `${this.dimensiones.ancho}px`);
     }
     
     dimensionar(dimensiones) {
@@ -37,13 +37,10 @@ export default class Escenario {
         - Las cuadriculas deben correspondes correctamente con el inicio del terreno y el inicio del escenario
     */
 
+    // entidades: Entidad[]
     integrar(entidades) {
         for(let entidad of entidades) this.terreno.appendChild(entidad);
         return this;
     } // Metodo temporal para probar entidades
 
 }
-
-const escenario = new Escenario();
-
-escenario.dimensionar({ ancho: 5000, alto: 5000 });
