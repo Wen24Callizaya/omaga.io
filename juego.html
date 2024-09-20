@@ -5,62 +5,65 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>replit</title>
-  <link href="juego.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="juego.css">
 </head>
 <body>
   <div class="contenedor">
-      <div class="terreno"></div>
-      <div class="cuadriculas"></div>
-      <div class="torretas">
-        <div class="torreta"></div>
-        <div class="torreta escopeta"><div class="fondo"></div></div>
-        <div class="torreta metralladora"></div>
-        <div class="torreta fusil"></div>
-        <div class="torreta guardia"></div>
+    <div class="terreno"></div>
+    <div class="cuadriculas"></div>
+    <div class="torretas">
+      <div class="torreta"></div>
+      <div class="torreta escopeta">
+        <div class="fondo"></div>
       </div>
-      <!-- personajes -->
-      <div class="personajes">
-          <!--Jugador-->
+      <div class="torreta metralladora"></div>
+      <div class="torreta fusil"></div>
+      <div class="torreta guardia"></div>
+    </div>
+    <!-- personajes -->
+    <div class="personajes">
+      <!--Jugador-->
 
-          <div class="jugador">
-              <div class="cuerpo"></div>
-          </div>
-
-          <!-- Enemigos -->
-          <div class="triangulo">
-              <div class="fondo"></div>
-          </div>
-
-          <div class="pentagono">
-              <div class="fondo"></div>
-          </div>
-
+      <div class="jugador">
+        <div class="cuerpo"></div>
       </div>
 
-      <!-- Contenedor de armas -->
-      <div class="contenedor-armas">
-        <div class="armas twin">
-          <img src="multimedia/imagenes/twin.png" alt="">
+      <!-- Enemigos -->
+      <div class="triangulo">
+        <div class="fondo"></div>
+      </div>
+
+      <div class="pentagono">
+        <div class="fondo"></div>
+      </div>
+
+    </div>
+
+    <!-- Contenedor de armas -->
+    <div class="contenedor-armas">
+      <div class="armas twin">
+        <img src="multimedia/imagenes/twin.png" alt="">
+      </div>
+      <div class="armas sniper"></div>
+      <div class="armas machine-gun"></div>
+      <div class="armas flank-guard"></div>
+    </div>
+
+    <!-- Camara -->
+    <div class="camara">
+      <div class="contenedor-nombre-jugador">
+        <h2 class="nombre-jugador"></h2>
+      </div>
+      <!-- Barra de nivel -->
+      <div class="contenedor-barra-nivel">
+        <div class="barra-nivel">
+          <div class="barra-nivel dos"></div>
+          <p class="texto-nivel">Lvl 1000000 Tank</p>
         </div>
-        <div class="armas sniper"></div>
-        <div class="armas machine-gun"></div>
-        <div class="armas flank-guard"></div>
       </div>
-
-      <!-- Camara -->
-      <div class="camara">
-          <div class="contenedor-nombre-jugador">
-              <h2 class="nombre-jugador"></h2>  
-          </div>
-          <!-- Barra de nivel -->
-           <div class="contenedor-barra-nivel">
-             <div class="barra-nivel">
-               <div class="barra-nivel dos"></div>
-               <p class="texto-nivel">Lvl 1000000 Tank</p>
-             </div>
-           </div>
-      </div>
-  </div> 
+    </div>
+  </div>
 </body>
-  <script src="main.js"></script>
+<script src="main.js"></script>
+
 </html>
