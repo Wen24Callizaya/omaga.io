@@ -26,9 +26,9 @@ export default class Entidad {
         this.desplazamiento = 0;
         this.rotacion = 5;
 
-        this.desplazamientoBase = 10;
-        this.desplazamientoMaximo = 30;
-        this.aceleracion = 1.05;
+        this.desplazamientoBase = 2;
+        this.desplazamientoMaximo = 10;
+        this.aceleracion = 1.006;
         this.desaceleracion = 0.80;
         
         this.vida = 100;
@@ -50,10 +50,6 @@ export default class Entidad {
         this.elemento.style.setProperty("--grados", `${this.grados}deg`); 
     }
 
-    mostrar() {
-        this.elemento.style.setProperty("display", "block");
-    }
-
     dimensionar(lado) {
         this.dimensiones = {
             ancho: lado,
@@ -73,6 +69,7 @@ export default class Entidad {
         this.coordenadas = Util.trayectoria(this);
 
         if (this.desplazamiento <= this.desplazamientoMaximo) this.desplazamiento *= this.aceleracion;
+        else this.desplazamiento = this.desplazamientoMaximo;
         
         this.__actualizarCSS();
     } // Mover, Desplazar, Transladar, Locomover, Trasnportar, Dirigir, Posicionar
@@ -109,27 +106,21 @@ export default class Entidad {
 
     }
 
-/*     actualizarRotacion() {
-        this.elemento.style.setProperty("--grados", `${this.grados}deg`);
-    }
+    /* 
+        + apuntar(): 
+        + mover():
+        + posicionar():
+        + dimensionar(): 
+        + sincronizar():
+    */
 
-    establecerCoordenadas(coordenadas) {
-        this.coordenadas = coordenadas;
-    }
+    /* 
+        sincronizar: ajusta la entidad con variables globales.
+        apuntar: ajusta .grados en funcion de una entidad
+        mover: agrega desplazamiento en funcion de .trayectoria
+        comportamiento
 
-    establecerRotacion(grados) {
-        this.grados = grados;
-    }
+        ana lleva al oso la avell ana
+    */
 
-    mover(coordenadas) {
-        this.__aplicarCoordenadas();
-    }
-
-    apuntar(coordenadas) {
-        const calculo = Util.obtenerAnguloMasProximo(this.coordenadas, coordenadas);
-        
-        this.establecerRotacion(calculo);
-        this.actualizarRotacion();
-    } */
-    
 }

@@ -1,19 +1,13 @@
-import { Circulo } from "../entidad.js";
+import Entidad from "../entidad.js";
 
-class Jugador extends Circulo {
+export default class Jugador extends Entidad {
 
     constructor() {
-        super();
-        
-        this.montarTorreta();
+        super(".jugador");
     }
 
-    montarTorreta() {
-        const cuerpo = this.elemento;
-        const torreta = document.querySelector(".torreta");
-
-        this.elemento = document.createElement("div")
-        this.elemento.appendChild(torreta);
+    montarJugador() {
+        
     }
 
 }

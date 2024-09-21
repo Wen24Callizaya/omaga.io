@@ -57,13 +57,15 @@ p, h2{
   --ancho: 0px;
   --alto: 0px;
 
+  display: grid;
+  place-items: center;
   height: var(--alto);
   width: var(--ancho);
 }
 
 .terreno{
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   border-radius: 8px;
   border: 80px solid #bfafaf;
   background-color: #cfbfbf;
@@ -71,7 +73,7 @@ p, h2{
   transform: scale(1);
 }
 
-.jugador {
+.circulo {
   --x: 100px;
   --y: 100px;
   --grados: 0deg;
@@ -188,6 +190,19 @@ p, h2{
       background-color: #9f4393;
       clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
   }
+}
+
+.camara {
+  --x: 0px;
+  --y: 0px;
+
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  border: 2px solid #333;
 }
 
 .camara .contenedor-barra-nivel{

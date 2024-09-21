@@ -1,10 +1,15 @@
 import Escenario from "./codigo/escenario.js";
 import Pentagono from "./codigo/entidad/pentagono.js";
+import Jugador from "./codigo/entidad/jugador.js";
+import Circulo from "./codigo/entidad/circulo.js";
+import Camara from "./codigo/camara.js";
 
 const escenario = new Escenario();
-const cant = 100;
+const cant = 2;
+const camara = new Camara();
 
-const pentagonos = [], direccionX = [], direccionY = [];
+const pentagonos = [];
+const jugador = new Circulo();
 
 let pentagono;
 
@@ -13,44 +18,43 @@ let pentagono;
 for(let i = 0; i < cant; i ++ ) {
     pentagono = new Pentagono();
     pentagono.dimensionar(Math.random() * 16 + 32);
-    pentagono.posicionar({ x: Math.random() * 1000, y: Math.random() * 1000});
-    pentagono.rotar(Math.random() * 360);
-    pentagono.desplazamiento = Math.random();
-    pentagono.desplazamientoMaximo = 50;
-    pentagono.aceleracion = Math.random() / 20;
-    pentagono.desplazamientoBase = pentagono.desplazamiento;
+    pentagono.posicionar({ x: Math.random() * 1000, y: Math.random() * 1000 });
     pentagonos.push(pentagono);
-    direccionX[i] = Math.random() * 5;
-    direccionY[i] = Math.random() * 5;
 } 
 
+jugador.posicionar({ x: 100, y: 100  });
+
+const fin = pentagonos.map(pentagono => pentagono.elemento);
+
+fin.push(jugador);
+
+jugador.equipo("verde");
+camara.enfocar(jugador);
+
 // -- ancho, alto y entidades del escenario
-escenario.dimensionar({ ancho: 12000, alto: 5000 });
-escenario.integrar(pentagonos.map(pentagono => pentagono.elemento));
+escenario.dimensionar({ ancho: 1200, alto: 1200 });  
+escenario.integrar(fin);
 
 // Intervalos de evetons
-// -- Direccion de cada pentagono
 
-//por causa y efecnto ( consecuencia temporal ) por consecuente
-
+let direccion = 0;
 setInterval(() => {
-    for(let i = 0; i < cant; i ++ ) {
-        direccionX[i] = Math.random() * 5;
-        direccionY[i] = Math.random() * 5;
-    }
+    direccion = (direccion)? 0: 180;
+    pentagonos.map(pentagono => pentagono.establecer({ trayectoria: pentagono.trayectoria + direccion }));
 }, 2000);
 
 // -- Rotacion y movimiento de cada pentagono
-setInterval(() => {
+function animacion() {
+
     pentagonos.map((pentagono, i) => {
+        if(!i) console.log(pentagono.desplazamiento);
         pentagono.rotar(1)
-        // pentagono.mover();
-        pentagono.desplazamiento += pentagono.aceleracion;
-        if(pentagono.desplazamiento >= pentagono.desplazamientoMaximo)
-            pentagono.desplazamiento = pentagono.desplazamientoBase;
-        pentagono.posicionar({ x: pentagono.coordenadas.x + direccionX[i] - 2.5, y: pentagono.coordenadas.y + direccionY[i] - 2.5});
+        pentagono.mover();
     });
-}, 1000/60);
+    requestAnimationFrame(animacion);
+
+}
+requestAnimationFrame(animacion);
 
 // Partida -> Juego en si
 // Decoracion
