@@ -1,59 +1,66 @@
 import Escenario from "./codigo/escenario.js";
 import Pentagono from "./codigo/entidad/pentagono.js";
-import Jugador from "./codigo/entidad/jugador.js";
+import PanelPrueba from "./codigo/interfaz.js";
 import Circulo from "./codigo/entidad/circulo.js";
 import Camara from "./codigo/camara.js";
 
 const escenario = new Escenario();
-const cant = 2;
+const cant = 1;
 const camara = new Camara();
-
+const panelPrueba = new PanelPrueba();
 const pentagonos = [];
 const jugador = new Circulo();
 
 let pentagono;
-
-// Configuracion de variables
-// -- rellenando los datos de los pentagonos al azar
-for(let i = 0; i < cant; i ++ ) {
+for (let i = 0; i < cant; i++) {
     pentagono = new Pentagono();
     pentagono.dimensionar(Math.random() * 16 + 32);
-    pentagono.posicionar({ x: Math.random() * 1000, y: Math.random() * 1000 });
+    pentagono.posicionar({ x: 1000, y: 1000 });
     pentagonos.push(pentagono);
-} 
+}
 
-jugador.posicionar({ x: 100, y: 100  });
+jugador.posicionar({ x: 1000, y: 1000 });
 
 const fin = pentagonos.map(pentagono => pentagono.elemento);
 
-fin.push(jugador);
+fin.push(jugador.elemento);
 
-jugador.equipo("verde");
-camara.enfocar(jugador);
+camara.enfocar(pentagonos[0]);
 
 // -- ancho, alto y entidades del escenario
-escenario.dimensionar({ ancho: 1200, alto: 1200 });  
 escenario.integrar(fin);
 
 // Intervalos de evetons
 
-let direccion = 0;
-setInterval(() => {
-    direccion = (direccion)? 0: 180;
-    pentagonos.map(pentagono => pentagono.establecer({ trayectoria: pentagono.trayectoria + direccion }));
-}, 2000);
-
 // -- Rotacion y movimiento de cada pentagono
-function animacion() {
+pentagonos[0].trayectoria = 45;
+panelPrueba.procesar({
+    Px: pentagonos[0].coordenadas.x,
+    Py: pentagonos[0].coordenadas.y,
+    Cx: camara.coordenadas.x,
+    Cy: camara.coordenadas.y,
+    Pa: pentagonos[0].dimensiones.ancho,
+    Ca: window.innerWidth,
+    F: (window.innerWidth + pentagonos[0].dimensiones.ancho)/2
+});
+panelPrueba.cargar();
 
+function animacion() {
+    panelPrueba.actualizar({
+        Px: Math.round(pentagonos[0].coordenadas.x),
+        Py: Math.round(pentagonos[0].coordenadas.y),
+        Cx: Math.round(camara.coordenadas.x),
+        Cy: Math.round(camara.coordenadas.y)
+    });
+    camara.actualizar();
     pentagonos.map((pentagono, i) => {
-        if(!i) console.log(pentagono.desplazamiento);
         pentagono.rotar(1)
         pentagono.mover();
     });
     requestAnimationFrame(animacion);
 
 }
+
 requestAnimationFrame(animacion);
 
 // Partida -> Juego en si

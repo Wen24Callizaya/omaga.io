@@ -1,3 +1,6 @@
+@import url(estilos/figuras.css);
+@import url(estilos/interfaces.css);
+
 @font-face {
   font-family: "Roboto";
   src: url(multimedia/fuentes/roboto/Roboto-Black.ttf);
@@ -6,6 +9,11 @@
 @font-face {
   font-family: "omaga";
   src: url(multimedia/fuentes/comic_helvetic/ComicHelvetic_Heavy.otf);
+}
+
+body {
+  overflow: hidden;
+  padding: 1000px;
 }
 
 * {
@@ -22,93 +30,68 @@ p, h2{
   -webkit-text-stroke: 1.2px black;
 }
 
-.cuadriculas{
+.contenedor{
   position: absolute;
   left: 0;
   top: 0;
-  width: 1800px;
-  height: 1800px;
-  background: 
-  repeating-linear-gradient(
-    #aaaaaa44 0%,
-    #aaaaaa44 0.1%, 
-    transparent 0.1%,
-    transparent 1.5%
-  ),
-  repeating-linear-gradient(
-        90deg,
-      #aaaaaa44 0%,
-      #aaaaaa44 0.1%, 
-    transparent 0.1%,
-    transparent 1.5%
-  );
-  z-index: 10;
-}
 
-.contenedor{
   display: grid;
   place-items: center;
-  height: 1800px;
-  width: 1800px;
+  height: 5000px;
+  width: 5000px;
   background-color: #c8c8c8;
 }
 
-.escenario {
-  --ancho: 0px;
-  --alto: 0px;
-
-  display: grid;
-  place-items: center;
-  height: var(--alto);
-  width: var(--ancho);
-}
-
-.terreno{
-  width: 80%;
-  height: 80%;
+.escenario{
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
   border-radius: 8px;
-  border: 80px solid #bfafaf;
+  /*border: 80px solid #bfafaf;*/
   background-color: #cfbfbf;
   z-index: 0;
   transform: scale(1);
 }
 
-.circulo {
-  --x: 100px;
-  --y: 100px;
-  --grados: 0deg;
-
-  display: none;
-
+.cuadriculas{
   position: absolute;
-  top: var(--y);
-  left: var(--x);
-  transform: scale(1) rotate(var(--grados));
+  left: 0;
+  top: 0;
+  width: 5000px;
+  height: 5000px;
+  background: 
+  repeating-linear-gradient(
+      #aaaaaa44 0%,
+      #aaaaaa44 0.1%, 
+      transparent 0.1%,
+      transparent 1.5%
+  ),
+  repeating-linear-gradient(
+      90deg,
+      #aaaaaa44 0%,
+      #aaaaaa44 0.1%, 
+      transparent 0.1%,
+      transparent 1.5%
+  );
+  z-index: 10;
+}
 
-  & .cuerpo {
-      position: relative;
-      height: 64px;
-      width: 64px;
-      background: #377;
-      border: 4px solid #266;
-      border-radius: 50%;
-      z-index: 10;
-  }
+.jugador {
 
   & .torreta {
-      position: absolute;
-          top: 50%;
-          left: 50%;
-      height: 64px;
-      width: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 64px;
+    width: 24px;
 
-      background: #aaa;
-      border: 4px solid #999;
-      border-radius: 4px;
-      z-index: 1;
+    background: #aaa;
+    border: 4px solid #999;
+    border-radius: 4px;
+    z-index: 1;
 
-      transform: translate(-50%, -85%);
-      transition: 60ms;
+    transform: translate(-50%, -85%);
+    transition: 60ms;
   }
 
   & .escopeta{
@@ -118,78 +101,15 @@ p, h2{
       padding: 0;
       clip-path: polygon(50% 100%, 0 0, 100% 0); 
 
-      & .fondo {
-          height: 54px;
-          width: 26px;
-          background-color: #aaa;
-          clip-path: polygon(50% 100%, 0 0, 100% 0);
-      }
-
-  }
+    & .fondo {
+        height: 54px;
+        width: 26px;
+        background-color: #aaa;
+        clip-path: polygon(50% 100%, 0 0, 100% 0);
+    }
 
 }
 
-.triangulo {
-  --x: 200px;
-  --y: 200px;
-  --grados: 200deg;
-  --ancho: 0px;
-  --alto: 0px;
-
-  position: absolute;
-    top: var(--y);
-    left: var(--x);
-
-  height: var(--alto);
-  width: var(--ancho);
-
-  padding: 8px 6px;
-  background: #a00;
-  transition: 1s;
-  border-radius: 100% 100% 4px 4px;
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-
-  transform: rotate(var(--grados));
-
-  & .fondo {
-      height: 52px;
-      width: 52px;
-      background: #fc0000;
-      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-  }
-}
-
-.pentagono {
-  --x: 200px;
-  --y: 200px;
-  --grados: 200deg;
-  --ancho: 100px;
-  --alto: 100px;
-  --diferencia: 0px;
-
-  position: absolute;
-    top: var(--y);
-    left: var(--x);
-
-  width: var(--ancho);
-  height: var(--alto);
-
-  padding: 4px;
-
-  box-sizing: border-box;
-  
-  background-color: #77336e;
-  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-  z-index: 1000;
-
-  transform: rotate(var(--grados)) translateY(var(--diferencia));
-
-  & .fondo{
-      height: calc(var(--alto) - 8px);
-      width: calc(var(--ancho) - 8px);
-      background-color: #9f4393;
-      clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-  }
 }
 
 .camara {
@@ -197,12 +117,20 @@ p, h2{
   --y: 0px;
 
   position: absolute;
-  left: var(--x);
-  top: var(--y);
+    left: var(--x);
+    top: var(--y);
+  
   height: 100vh;
   width: 100vw;
+  
   box-sizing: border-box;
   border: 2px solid #333;
+
+  background: 
+    linear-gradient(90deg, transparent 0%, transparent 49.9%, black 50%, transparent 50.1%, transparent 100%),
+    linear-gradient(0deg, transparent 0%, transparent 49.9%, black 50%, transparent 50.1%, transparent 100%);
+
+  z-index: 99999;
 }
 
 .camara .contenedor-barra-nivel{

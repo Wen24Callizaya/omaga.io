@@ -1,0 +1,84 @@
+.circulo {
+    --x: 100px;
+    --y: 100px;
+    --grados: 0deg;
+
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    transform: scale(1) rotate(var(--grados));
+
+    & .fondo {
+        position: relative;
+        height: 64px;
+        width: 64px;
+        background: #377;
+        border: 4px solid #266;
+        border-radius: 50%;
+        z-index: 10;
+    }
+
+}
+
+.triangulo {
+    --x: 200px;
+    --y: 200px;
+    --grados: 200deg;
+    --ancho: 0px;
+    --alto: 0px;
+
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+
+    height: var(--alto);
+    width: var(--ancho);
+
+    padding: 8px 6px;
+    background: #a00;
+    transition: 1s;
+    border-radius: 100% 100% 4px 4px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+
+    transform: rotate(var(--grados));
+
+    & .fondo {
+        height: 52px;
+        width: 52px;
+        background: #fc0000;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+}
+
+.pentagono {
+    --x: 200px;
+    --y: 200px;
+    --grados: 200deg;
+    --ancho: 100px;
+    --alto: 100px;
+    --diferencia: 0px;
+
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+
+    width: var(--ancho);
+    height: var(--alto);
+
+    padding: 4px;
+
+    box-sizing: border-box;
+
+    background-color: #77336e;
+    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+    z-index: 1000;
+
+    transform: rotate(var(--grados)) translateY(var(--diferencia));
+
+    & .fondo {
+        height: calc(var(--alto) - 8px);
+        width: calc(var(--ancho) - 8px);
+        background-color: #9f4393;
+        clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+    }
+}

@@ -1,0 +1,47 @@
+.panel-prueba {
+
+    display: flex;
+        flex-direction: column;
+
+    width: 200px;
+    padding: 12px;
+
+    position: fixed;
+    left: 12px;
+    top: 12px;
+
+    background: whitesmoke;
+    opacity: 0.6;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+
+    z-index: 1000000;
+    overflow: hidden;
+
+    font-family: monospace;
+    font-size: 16px;
+
+    & .campo {
+        display: flex;
+            gap: 12px;
+            align-items: center;
+        
+        height: 1em;
+        padding: 1.2ch 0ch;
+    }
+    
+    & .campo .nombre {
+        font-weight: bold;
+        
+        display: grid;
+        place-items: center;
+
+        background: #333;
+        color: #eee;
+        
+        border-radius: 4px;
+        text-transform: uppercase;
+        padding: 0 0.6ch;
+    }
+
+}

@@ -1,17 +1,8 @@
-class Terreno {
-
-    constructor() {
-
-    }
-
-} // Terreno con Zonas;
-
 export default class Escenario {
 
     constructor() {
 
         this.escenario = document.querySelector(".escenario");
-        this.terreno = document.querySelector(".terreno");
         this.cuadriculas = document.querySelector(".cuadriculas");
 
         this.dimensiones = {
@@ -39,7 +30,7 @@ export default class Escenario {
 
     // entidades: Entidad[]
     integrar(entidades) {
-        for(let entidad of entidades) this.terreno.appendChild(entidad);
+        for(let entidad of entidades) this.escenario.appendChild(entidad);
         return this;
     } // Metodo temporal para probar entidades
 

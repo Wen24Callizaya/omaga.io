@@ -2,87 +2,100 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>replit</title>
-  <link rel="stylesheet" href="juego.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>replit</title>
+    <link rel="stylesheet" href="juego.css">
 </head>
-<body>
-  <div class="contenedor">
-      
-      <!-- esceneario -->
-      <div class="escenario">
-        <div class="terreno"></div>
-        <div class="cuadriculas"></div>
-      </div>
 
-      <!--Entidades-->
-      <div class="torretas">
-        <div class="torreta"></div>
-        <div class="torreta escopeta"><div class="fondo"></div></div>
-        <div class="torreta metralladora"></div>
-        <div class="torreta fusil"></div>
-        <div class="torreta guardia"></div>
-      </div>
+<body>
+
+    <div class="plantillas" style="display: none;">
+
+        <!--Interfaces-->
+        <div class="interfaces">
+            <div class="panel-prueba"></div>
+        </div>
+
+        <!--Entidades-->
+        <div class="torretas">
+            <div class="torreta"></div>
+            <div class="torreta escopeta">
+                <div class="fondo"></div>
+            </div>
+            <div class="torreta metralladora"></div>
+            <div class="torreta fusil"></div>
+            <div class="torreta guardia"></div>
+        </div>
 
         <!-- personajes -->
-      <div class="personajes" style="display: none;">
-          <!--Jugador-->
-          <div class="jugador">
-          </div>
-          
-          <div class="circulo">
-              <div class="cuerpo"></div>
-          </div>
+        <div class="figuras">
+            <!--Jugador-->
+            <div class="jugador">
+            </div>
 
-          <!-- Enemigos -->
-          <div class="triangulo">
-              <div class="fondo"></div>
-          </div>
+            <div class="circulo">
+                <div class="fondo"></div>
+            </div>
 
-          <div class="pentagono">
-              <div class="fondo"></div>
-          </div>
+            <!-- Enemigos -->
+            <div class="triangulo">
+                <div class="fondo"></div>
+            </div>
 
-      <div class="jugador">
-        <div class="cuerpo"></div>
-      </div>
+            <div class="pentagono">
+                <div class="fondo"></div>
+            </div>
 
-      <!-- Enemigos -->
-      <div class="triangulo">
-        <div class="fondo"></div>
-      </div>
+            <div class="jugador">
+                <div class="cuerpo"></div>
+            </div>
 
-      <div class="pentagono">
-        <div class="fondo"></div>
-      </div>
+            <!-- Enemigos -->
+            <div class="triangulo">
+                <div class="fondo"></div>
+            </div>
 
-    </div>
+            <div class="pentagono">
+                <div class="fondo"></div>
+            </div>
 
-    <!-- Contenedor de armas -->
-    <div class="contenedor-armas">
-      <div class="armas twin">
-        <img src="multimedia/imagenes/twin.png" alt="">
-      </div>
-      <div class="armas sniper"></div>
-      <div class="armas machine-gun"></div>
-      <div class="armas flank-guard"></div>
-    </div>
-
-    <!-- Camara -->
-    <div class="camara">
-      <div class="contenedor-nombre-jugador">
-        <h2 class="nombre-jugador"></h2>
-      </div>
-      <!-- Barra de nivel -->
-      <div class="contenedor-barra-nivel">
-        <div class="barra-nivel">
-          <div class="barra-nivel dos"></div>
-          <p class="texto-nivel">Lvl 1000000 Tank</p>
         </div>
-      </div>
+
+        <!-- Contenedor de armas -->
+        <div class="contenedor-armas" style="display: none">
+            <div class="armas twin">
+                <img src="multimedia/imagenes/twin.png" alt="">
+            </div>
+            <div class="armas sniper"></div>
+            <div class="armas machine-gun"></div>
+            <div class="armas flank-guard"></div>
+        </div>
+
     </div>
-  </div>
+    
+    <div class="contenedor">
+
+        <!-- Camara -->
+        <div class="camara">
+            <div class="contenedor-nombre-jugador">
+                <h2 class="nombre-jugador"></h2>
+            </div>
+            <!-- Barra de nivel -->
+            <div class="contenedor-barra-nivel">
+                <div class="barra-nivel">
+                    <div class="barra-nivel dos"></div>
+                    <p class="texto-nivel">Lvl 1000000 Tank</p>
+                </div>
+            </div>
+        </div>
+
+        <!--Esceneario-->
+        <div class="escenario"></div>
+        <div class="cuadriculas"></div>
+
+    </div>
+
 </body>
 <script type="module" src="main.js"></script>
 

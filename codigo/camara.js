@@ -16,8 +16,8 @@ export default class Camara {
     }
 
     __actualizarCSS() {
-        this.elemento.computedStyleMap.setProperty("--x", `${this.coordenadas.x}px`);
-        this.elemento.computedStyleMap.setProperty("--y", `${this.coordenadas.y}px`);
+        this.elemento.style.setProperty("--x", `${this.coordenadas.x}px`);
+        this.elemento.style.setProperty("--y", `${this.coordenadas.y}px`);
     }
 
     // @coordenadas: Coordenadas, :undefined
@@ -27,8 +27,11 @@ export default class Camara {
     }
 
     actualizar() {
-        window.scrollTo = this.elemento;
-        this.posicionar({ this.enfoque. });
+        this.posicionar({ 
+            x: this.enfoque.coordenadas.x - (window.innerWidth - this.enfoque.dimensiones.ancho)/2, 
+            y: this.enfoque.coordenadas.y - (window.innerHeight - this.enfoque.dimensiones.alto)/2
+        });
+        window.scroll({ top: this.coordenadas.y , left: this.coordenadas.x });
     }
 
     // :undefined
