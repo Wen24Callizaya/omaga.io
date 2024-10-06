@@ -1,6 +1,8 @@
 .circulo {
     --x: 100px;
-    --y: 100px;
+    --y: 100px
+    --ancho: 54px;
+    --alto: 54px;
     --grados: 0deg;
 
     position: absolute;
@@ -8,10 +10,13 @@
     left: var(--x);
     transform: scale(1) rotate(var(--grados));
 
+    height: var(--alto);
+    width: var(--ancho);
+
     & .fondo {
         position: relative;
-        height: 64px;
-        width: 64px;
+        height: 100%;
+        width: 100%;
         background: #377;
         border: 4px solid #266;
         border-radius: 50%;
@@ -26,6 +31,7 @@
     --grados: 200deg;
     --ancho: 0px;
     --alto: 0px;
+    --diferencia: 0px;
 
     position: absolute;
     top: var(--y);
@@ -34,19 +40,20 @@
     height: var(--alto);
     width: var(--ancho);
 
-    padding: 8px 6px;
+    padding: 4px;
     background: #a00;
-    transition: 1s;
     border-radius: 100% 100% 4px 4px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 
-    transform: rotate(var(--grados));
+    transform: rotate(var(--grados)) translateY(var(--diferencia));
 
     & .fondo {
-        height: 52px;
-        width: 52px;
+        height: calc(var(--alto) - 8px);
+        width: calc(var(--ancho) - 8px);
         background: #fc0000;
         clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        z-index: 10;
+        transform: translateY(1.3px);
     }
 }
 

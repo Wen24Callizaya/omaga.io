@@ -32,6 +32,21 @@ export default class Util {
         });
     }
 
+    static delta(entidad, entidad2) {
+        return {
+            x: entidad2.coordenadas.x - entidad.coordenadas.x,
+            y: entidad2.coordenadas.y - entidad.coordenadas.y
+        }
+    }
+
+    static centroVentana(entidad) {
+
+    }
+
+    static deltaCoordenadasCursor(entidad) {
+
+    }
+
 }
 
 // Que podemos hacer sin compu?

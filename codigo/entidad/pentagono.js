@@ -21,4 +21,10 @@ export default class Pentagono extends Entidad {
         this.__actualizarCSS();
     }
 
+    actualizar() {
+        this.rotar(1)
+        this.mover();
+        this.trayectoria += 1;
+    }
+
 } // enemigo

@@ -1,3 +1,5 @@
+import Util from "./util.js";
+
 export default class Camara {
 
     constructor() {
@@ -12,7 +14,6 @@ export default class Camara {
             x: 0,
             y: 0
         }
-        
     }
 
     __actualizarCSS() {
@@ -27,10 +28,7 @@ export default class Camara {
     }
 
     actualizar() {
-        this.posicionar({ 
-            x: this.enfoque.coordenadas.x - (window.innerWidth - this.enfoque.dimensiones.ancho)/2, 
-            y: this.enfoque.coordenadas.y - (window.innerHeight - this.enfoque.dimensiones.alto)/2
-        });
+        this.posicionar(this.__centrar(this.enfoque));
         window.scroll({ top: this.coordenadas.y , left: this.coordenadas.x });
     }
 
@@ -39,14 +37,32 @@ export default class Camara {
 
     }
 
-    // @entidad: Entidad, :undefined
-    enfocarPeriferia(entidad) {
+    __centrar(punto) {
+        return {
+            x: punto.coordenadas.x - (window.innerWidth - punto.dimensiones.ancho)/2,
+            y: punto.coordenadas.y - (window.innerHeight - punto.dimensiones.alto)/2
+        };
+    }
 
+    // @entidad: Entidad, :undefined
+    actualizarPeriferia(entidad, raton) {
+        const delta = Util.delta(entidad, raton);
+        this.posicionar(this.__centrar({
+            coordenadas: {
+                x: entidad.coordenadas.x - delta.x,
+                y: entidad.coordenadas.y - delta.y
+            },
+            dimensiones: entidad.dimensiones
+        }))
     }
 
     // @entidades: Entiad , :undefined
     enfocarGrupo(entidades) {
 
+    }
+
+    enfocarRaton(enfoque) {
+        this.enfoque = enfoque;
     }
 
     // @entidad: Entidad , :undefined

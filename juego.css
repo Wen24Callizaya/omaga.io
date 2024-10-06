@@ -77,6 +77,19 @@ p, h2{
 }
 
 .jugador {
+  --jugador-x: 100px;
+  --jugador-y: 100px;
+  --jugador-ancho: 54px;
+  --jugador-alto: 54px;
+  --jugador-grados: 0deg
+
+  & .cuerpo {
+    --x: var(--jugador-x);
+    --y: var(--jugador-y);
+    --ancho: var(--jugador-ancho);
+    --alto: var(--jugador-alto);
+    --grados: var(--jugador-grados);
+  }
 
   & .torreta {
     position: absolute;
@@ -126,9 +139,9 @@ p, h2{
   box-sizing: border-box;
   border: 2px solid #333;
 
-  background: 
+  /*background: 
     linear-gradient(90deg, transparent 0%, transparent 49.9%, black 50%, transparent 50.1%, transparent 100%),
-    linear-gradient(0deg, transparent 0%, transparent 49.9%, black 50%, transparent 50.1%, transparent 100%);
+    linear-gradient(0deg, transparent 0%, transparent 49.9%, black 50%, transparent 50.1%, transparent 100%);*/
 
   z-index: 99999;
 }
