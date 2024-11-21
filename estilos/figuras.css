@@ -3,17 +3,17 @@
     --y: 100px
     --ancho: 54px;
     --alto: 54px;
-    --grados: 0deg;
+    --direccion: 0deg;
 
     position: absolute;
     top: var(--y);
     left: var(--x);
-    transform: scale(1) rotate(var(--grados));
+    transform: scale(1) rotate(var(--dirrecion));
 
     height: var(--alto);
     width: var(--ancho);
-
-    & .fondo {
+}
+.circulo .fondo {
         position: relative;
         height: 100%;
         width: 100%;
@@ -23,7 +23,9 @@
         z-index: 10;
     }
 
-}
+    .circulo .proyectil {
+        
+    }
 
 .triangulo {
     --x: 200px;
@@ -46,8 +48,9 @@
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 
     transform: rotate(var(--grados)) translateY(var(--diferencia));
+}
 
-    & .fondo {
+    .triangulo .fondo {
         height: calc(var(--alto) - 8px);
         width: calc(var(--ancho) - 8px);
         background: #fc0000;
@@ -55,12 +58,11 @@
         z-index: 10;
         transform: translateY(1.3px);
     }
-}
 
 .pentagono {
     --x: 200px;
     --y: 200px;
-    --grados: 200deg;
+    --direccion: 200deg;
     --ancho: 100px;
     --alto: 100px;
     --diferencia: 0px;
@@ -80,12 +82,11 @@
     clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
     z-index: 1000;
 
-    transform: rotate(var(--grados)) translateY(var(--diferencia));
-
-    & .fondo {
+    transform: rotate(var(--direccion)) translateY(var(--diferencia));
+}
+.pentagono .fondo {
         height: calc(var(--alto) - 8px);
         width: calc(var(--ancho) - 8px);
         background-color: #9f4393;
         clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
     }
-}

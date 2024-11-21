@@ -1,35 +1,44 @@
 import Escenario from "./escenario.js";
+import Pentagono from "./entidad/pentagono.js";
+import Cuadrado from "./entidad/cuadrado.js";
+import Jugador from "./entidad/jugador.js";
+import Triangulo from "./entidad/triangulo.js";
+
 
 export default class Partida {
+    
+    escenario = new Escenario();
+
+    perifericos = {
+        teclado: new Teclado(),
+        raton: new Raton(),
+        tick: new Tick()
+    }
+
+    clasesEnemigos;
+
+    entidadesEnemigas;
+    
+    maximoEntidad;
+    maximoProyectiles;
+
+    jugador = new Jugador();
 
     constructor() {
-        this.escenario = new Escenario();
-
-        this.perifericos = {
-            teclado: new Teclado(),
-            raton: new Raton(),
-            tick: new Tick()
-        }
-
-        this.jugador = null;
     }
 
     configurarJugador() {
         this.jugador = new Jugador();
         this.jugador.establecerPerifecicos(this.perifericos);
-        this.jugador.posicionar({
+        this.jugador.coordenadas = {
             x: Math.random() * 100 + 2450,
             y: Math.random() * 100 + 2450
-        });
+        };
     }
 
     configurarGeneracion(clases, probabilidades) {
         this.contructores = clases;
         this.probabilidades = probabilidades;
-    }
-
-    configurarInterfaces() {
-
     }
 
     __generarXAleatorioExcluyente(xFinal, intervalo) {
@@ -66,7 +75,7 @@ export default class Partida {
     }
 
     animar(tiempoActual) {
-        requestAnimationFrame(this.animar)
+        requestAnimationFrame(this.animar);
     }
 
 }

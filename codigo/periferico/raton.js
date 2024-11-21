@@ -7,6 +7,8 @@ export default class Raton {
             y: 0
         }
 
+        this.click = false;
+
     }
 
     actualizar(coordenadas) {
@@ -14,12 +16,17 @@ export default class Raton {
     }
 
     sincronizar({ pageX, pageY }) {
-        console.log("here");
         this.actualizar({ x: pageX, y: pageY });
+    }
+
+    sincronizarClick() {
+        this.click = true;
+        setTimeout(() => { this.click = false }, 100);
     }
 
     montar() {
         document.addEventListener("mousemove", e => this.sincronizar(e));
+        document.addEventListener("click", () => { this.sincronizarClick() })
     }
 
 }

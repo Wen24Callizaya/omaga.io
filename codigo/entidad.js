@@ -46,36 +46,93 @@ const
  * .
  */
 
-class Entidad {
+export class Velocidad {
 
-    constructor() {
-        
-        this.nodo;
-        
-        this.x;
-        this.y;
-        this.lado;
-        this.alto;
-        this.ancho;
-        
-        this.direccion;
-        this.trayectoria;
-        
-        this.velocidadMovimiento;
-        this.velocidadMovimientoBase;
-        this.velocidadMovimientoMaximo;
-        this.aceleracionMovimiento;
-        this.velocidadRotacion;
-        this.velocidadRotacionBase;
-        this.velocidadRotacionMaxima;
-        this.aceleracionRotacion;
-        
-        this.equipo;
-        this.salud;
-        this.fuerza;
+    actual = 0;
+    base = 0;
+    maxima = 0;
+    aceleracion = 0;
+    desaceleracion = 0;
+    seAumentoMaximo = false;
 
-        this.objetivo;
+    constructor(base, maxima, aceleracion, desaceleracion) {
+        this.base = base;
+        this.maxima = maxima;
+        this.aceleracion = aceleracion;
+    }
 
+    aumentar() {
+        if(this.seAumentoMaximo) return;
+
+        if(this.actual < this.base)
+            this.actual = this.base;
+        if(this.actual >= this.maxima && !this.seAumentoMaximo)
+            this.seAumentoMaximo = true;
+        if(this.actual >= this.base && this.actual <= this.maxima)
+            this.actual *= this.aceleracion;
+    }
+
+    diminuir() {
+
+        if(this.actual < this.base)
+            this.actual = 0;
+        if(this.actual >= this.base) {
+            this.actual *= this.desaceleracion;
+            this.seAumentoMaximo = false;
+        }
+    }
+
+}
+
+export default class Entidad {
+
+    nodo;
+    
+    #x = 0;
+    #y = 0;
+    lado = 0;
+    alto = 0;
+    ancho = 0;
+    
+    #direccion = 0;
+    trayectoria = 0;
+
+    rotacion = new Velocidad(200, 300, 0.12, 0.12);
+    desplazamiento = new Velocidad(10, 15, 1.0012, 1.36);
+    
+    equipo = 2;
+    salud = 0;
+    fuerza;
+
+    objetivo;
+    reloj;
+
+    estaAtacando = false;
+    aceleracionBloqueda = false; 
+
+    enColicion = false;
+    objetoColicion = null;
+
+    hitboxVisible = true; // Controla la visibilidad de la hitbox
+
+
+    constructor(selector) {
+        
+        this.nodo = document.querySelector(selector).cloneNode(true);
+
+    }
+
+    estaProximoObjetivo(rango) {
+        return this.x + rango > this.objetivo.x &&
+        this.x - rango < this.objetivo.x &&
+        this.y + rango > this.objetivo.y &&
+            this.y - rango < this.objetivo.y;
+    }
+
+    intervalo(funcion, espera) {
+        const inicio = this.reloj.total;
+        this.a = inicio;
+        if(inicio - this.reloj.total > espera) funcion();
     }
 
     get coordenadas() {
@@ -85,7 +142,29 @@ class Entidad {
 
     get dimensiones() {
         const { ancho, alto } = this;
-        return { ancho, alto } = this;
+        return { ancho, alto };
+    }
+
+    get direccion() { 
+        return this.#direccion; 
+    }
+
+    get x() {
+        return this.#x;
+    }
+
+    get y() {
+        return this.#y;
+    }
+
+    set x(x) {
+        this.#x = x;
+        this.nodo.style.setProperty("--x", `${this.#x}px`);
+    }    
+    
+    set y(y) {
+        this.#y = y;
+        this.nodo.style.setProperty("--y", `${this.#y}px`);
     }
 
     set coordenadas({ x, y }) {
@@ -94,190 +173,86 @@ class Entidad {
     }
 
     set dimensiones(lado) {
-        this.ancho = lado;
-        this.alto = lado;
+        const { ancho, alto } = this.calcularDimensiones(lado);
+        this.ancho = ancho;
+        this.alto = alto;
+        this.nodo.style.setProperty("--ancho", `${this.ancho}px`);
+        this.nodo.style.setProperty("--alto", `${this.alto}px`);
     }
 
-    // @actualizarCSS
-    desplazar() {
-        this.velocidadMovimiento = this.velocidadMovimiento == 0? this.velocidadMovimientoBase: this.velocidadMovimiento * this.aceleracionMovimiento;
+    set direccion(direccion) {
+        this.#direccion = direccion;
+        this.nodo.style.setProperty("--direccion", `${this.direccion}deg`);
     }
 
-}
+    calcularDimensiones(lado) {
+        return { 
+            ancho: lado, 
+            alto: lado 
+        };
+    }
 
-export default class Entidad {
-
-    constructor(selector) {
-
-        this.elemento = document.querySelector(selector).cloneNode(true);  
-        
-        this.rotacion = Math.random() * 360;
-
+    mover() {    
         this.coordenadas = {
-            x: Math.random() * 5000,
-            y: Math.random() * 5000
-        };
-        this.dimensiones = {
-            alto: 0,
-            ancho: 0
+                x: this.coordenadas.x + Util.seno(this.trayectoria) * this.desplazamiento.actual,
+                y: this.coordenadas.y + Util.coseno(this.trayectoria) * this.desplazamiento.actual
         };
 
-        this.velociadad = {
-            rotacion: 10,
-            desplazamiento: 10
-        }
-
-        this.direccion = Math.random() * 360;
-
-        this.velocidadDesplazamientoBase = 2;
-        this.desplazamientoMaximo = 10;
-
-        this.aceleracion = 1.006;
-        this.desaceleracion = 0.80;
-        
-        this.vida = 100;
-        this.ataque = 20;
-        this.equipo = GRIS;
-
-        this.actualizar = () => null;
-
-    }
-
-    get coordenadas() {
-        const { x, y } = this;
-        return { x, y };
-    }
-
-    get dimensiones() {
-
-    }
-
-    __actualizarCSS() {
-        this.elemento.style.setProperty("--x", `${this.coordenadas.x}px`);
-        this.elemento.style.setProperty("--y", `${this.coordenadas.y}px`);
-        this.elemento.style.setProperty("--alto", `${this.dimensiones.alto}px`);
-        this.elemento.style.setProperty("--ancho", `${this.dimensiones.ancho}px`);
-        this.elemento.style.setProperty("--grados", `${this.grados}deg`);
+        if(!this.aceleracionBloqueda) this.desplazamiento.aumentar();
     }
     
-    posicionar(coordenadas) {
-        this.coordenadas = coordenadas;
-    }
-
-    dimensionar(dimensiones) {
-        this.dimensiones = dimensiones;
-    }
-
-/*  establecerDimensiones(lado) {
-        this.dimensiones = {
-            ancho: lado,
-            alto: lado
-        };
-    }
-
-    establecerCoordenadas(coordendas) {
-        this.coordenadas = coordenadas;
-    }
-
-    establecerDireccion(direccion) {
-        this.direccion = direccion;
-    }
-
-    establecerRotacion(rotacion) {
-        this.rotacion = rotacion;
-    } */
-
-    establecerComportamiento(comportamiento) {
-        this.actualizar = comportamiento;
-    }
-
-    refrescar() {
-        this.__actualizarCSS();
-    }
-
-    // @coordenadas: Coordenadas
-    apuntar(coordenadas) {
-        const delta = Util.delta(coordenadas);
-    }
-
-    mover() {
-        if(this.desplazamiento == 0) this.desplazamiento = this.desplazamientoBase;
-        
-        this.coordenadas = Util.trayectoria(this);
-
-        if (this.desplazamiento <= this.desplazamientoMaximo) this.desplazamiento *= this.aceleracion;
-        else this.desplazamiento = this.desplazamientoMaximo;
-    }
-
     rotar(antihorario = false) {
-        this.grados += this.rotacion * (antihorario? -1 : 1);
+        this.rotacion.aumentar();
+        this.direccion += this.rotacion.actual;
     }
 
-    animar() {
-        this.refrescar();
+    alterarTrayectoria(angulo) {
+        return 270 - angulo;
+    }
+
+    calcularAlguloObjetivo() {
+        const delta =  {
+            x: this.x - this.objetivo.x,
+            y: this.y - this.objetivo.y
+        };
+
+        let anguloObjetivo = Math.atan2(delta.y, delta.x) * 180 / 3.1415;
+
+        if (anguloObjetivo < 0) {
+            anguloObjetivo += 360;
+        }
+
+        
+        return this.alterarTrayectoria(anguloObjetivo);
+
+    }
+
+    apuntarObjetivo() {
+        this.trayectoria = this.calcularAlguloObjetivo();
+    }
+
+
+    atacar() {
+
+    }
+
+    avanzar() {
+        this.trayectoria = this.apuntar(this.objetivo, "trayectoria");
+        this.mover();
+    }
+
+
+    
+        // Método para ocultar la hitbox temporalmente
+        ocultarHitbox() {
+            this.hitboxVisible = false;
+            setTimeout(() => {
+                this.hitboxVisible = true;
+            }, 1000); // 1 segundo
+        }
+
+    actualizar() {
+
     }
 
 }
-
-/* 
-    + apuntar(): 
-    + mover():
-    + posicionar():
-    + dimensionar(): 
-    + sincronizar():
-*/
-
-/*
-    Entidad funciones
-        - apuntar: gradualmente .rotacion segun -objetivo.coordenadas
-        - mover: .coordenadas con .velocidad segun .direccion
-        - rotar: .rotacion con .velocidad segun -antihorario
-        - taclear: Triangulo
-            actualiza .desplazamiento a 100
-            bloquea .rotacion
-            inicia un conteo (desplazamiento | tiempo)
-        - disparar: Pentagono
-            actualiza .desplazamiento / 2
-            actualiza .rotacion **2
-            anima explosion
-            invoca Proyectil.Traingulo
-
-        - avanzar:
-            actualiza el elemento segun -tiempo-transcurrido cuando este entra en pantalla
-
-        - actualizarCSS: actualiza las propiedades CSS
-        - animar: responde a un "frame" en funcion del comportamiento;
-
-*/
-
-/* 
-    sincronizar: ajusta la entidad con variables globales.
-    apuntar: ajusta .grados en funcion de una entidad
-    mover: agrega desplazamiento en funcion de .trayectoria
-    comportamiento
-
-    ana lleva al oso la avell ana
-*/
-
-// establecerCoordenadas
-
-/*
-    .elemento: HTMLElement 
-    .x: float (guarda su posicion en el eje x)
-    .y: float (guarda su posicion en el eje y)
-    .alto: float ()
-
-*/
-
-/*
-    .getElement<...>(string selectorEspecifico): HTMLElement
-    .getElements<...>(string selectorEspecifico): HTMLColection
-    .querySelector(string selector): HTMLElement
-    .text
-
-    .clone
-    .copy
-    .createElement
-    .duply   
-
-*/

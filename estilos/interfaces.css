@@ -19,8 +19,9 @@
 
     font-family: monospace;
     font-size: 16px;
+}
 
-    & .campo {
+.panel-campo .campo {
         display: flex;
             gap: 12px;
             align-items: center;
@@ -29,7 +30,7 @@
         padding: 1.2ch 0ch;
     }
     
-    & .campo .nombre {
+.panel-campo .campo .nombre {
         font-weight: bold;
         
         display: grid;
@@ -42,5 +43,3 @@
         text-transform: uppercase;
         padding: 0 0.6ch;
     }
-
-}

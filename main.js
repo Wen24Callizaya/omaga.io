@@ -1,93 +1,94 @@
 import Escenario from "./codigo/escenario.js";
 import Camara from "./codigo/camara.js";
 import PanelDatos from "./codigo/interfaz/panelDatos.js";
-import Pentagono from "./codigo/entidad/pentagono.js";
-import Circulo from "./codigo/entidad/circulo.js";
+
 import Raton from "./codigo/periferico/raton.js";
 import Teclado from "./codigo/periferico/teclado.js";
+import Tick from "./codigo/periferico/tick.js";
+
 import Triangulo from "./codigo/entidad/triangulo.js";
 import Cuadrado from "./codigo/entidad/cuadrado.js";
-import Jugador from "./codigo/entidad/jugador.js";
+import Pentagono from "./codigo/entidad/pentagono.js";
+import Circulo from "./codigo/entidad/circulo.js";
 
+import Jugador from "./codigo/entidad/jugador.js";
+import Colisionador from "./codigo/colisionador.js";
+import Torreta from "./codigo/entidad/torreta.js";
+
+// INSTACIA
 const escenario = new Escenario();
 const camara = new Camara();
 const panelPrueba = new PanelDatos();
-const jugador = new Jugador();
+const jugador = new Jugador(escenario);
+const torreta = new Torreta();
+
+const colisionador = new Colisionador(5500, 5500, 150, escenario);
 
 const raton = new Raton();
 const teclado = new Teclado();
+const tick = new Tick();
 
+// MONTAJE DE PERIFERICOS
 raton.montar();
 teclado.montar();
 
-const pentagonos = [];
-const triangulos = [];
-const cuadrados = [];
-const cant = 5;
+const entidades = [];
 
-let pentagono, triangulo, cuadrado;
-for (let i = 0; i < cant; i++) {
-    pentagono = new Pentagono();
-    pentagono.dimensionar(Math.random() * 16 + 32);
-    pentagono.posicionar({ x: Math.random() * 1000 + 1000, y: Math.random() * 1000 + 1000 });
-    pentagonos.push(pentagono);
-    triangulo = new Triangulo();
-    triangulo.dimensionar(Math.random() * 8 + 32);
-    triangulo.posicionar({ x: Math.random() * 1000 + 1000, y: Math.random() * 1000 + 1000 });
-    triangulos.push(triangulo);
-    cuadrado = new Cuadrado();
-    cuadrado.dimensionar(Math.random() * 8 + 32);
-    cuadrado.posicionar({ x: Math.random() * 1000 + 1000, y: Math.random() * 1000 + 1000 });
-    cuadrados.push(cuadrado);
-    pentagono.refrescar();
-    triangulo.refrescar();
-    cuadrado.refrescar();
+// GENERACION DE ENTIDADES
+function generar(clase, cantidad, tamanio, equipo) {
+    for(let i = 0; i < cantidad; i++) {
+        const figura = new clase();
+        figura.dimensiones = tamanio;
+        figura.equipo = equipo;
+        figura.coordenadas = { x: Math.random() * 1000 + 1000, y: Math.random() * 1000 + 1000 };
+        figura.desplazamiento.aceleracion = 1.05;
+        figura.objetivo = jugador;
+        figura.reloj = tick;
+        entidades.push(figura);
+    }
+
 }
 
-function comportamientoPentagono(pentagono) {
-    pentagono.rotar();
-    pentagono.mover();
-    pentagono.trayectoria += 1;
-}
+generar(Pentagono, 10, 52, 2);
 
-pentagonos.map(pentagono => {
-    pentagono.establecerComportamiento(comportamientoPentagono);
-})
+jugador.entidades = entidades;
+jugador.coordenadas = { x: 1500, y: 1500 };
+jugador.dimensiones = 54;
 
-const entidades = [...pentagonos, ...triangulos, ...cuadrados, jugador];
+entidades.push(jugador);
 
-jugador.posicionar({ x: 1000, y: 1000 });
-jugador.dimensionar(54);
+escenario.integrar(entidades.map(entidad => entidad.nodo));
 
-escenario.integrar(entidades.map(entidad => entidad.elemento));
 camara.enfocar(jugador);
 
-let ind = 1; /*sr
-setInterval(() => {
-    camara.enfocar(pentagonos[ind]);
-    ind = (ind + 1) % pentagonos.length;
-}, 2000); */
+let ind = 1;
 
 panelPrueba.procesar(() => ({
-    Tw: teclado.leer("w"),
-    Ta: teclado.leer("a"),
-    Tr: teclado.leer("r"),
-    Ts: teclado.leer("s")
+    YoX: jugador.x,
+    YoY: jugador.y
 }));
+    
 panelPrueba.cargar();
+jugador.nombre = localStorage.getItem("nombre");//Aqui
 
 jugador.establecerPerifericos(teclado, raton);
 
-function animacion() {
+document.querySelector(".nombre-jugador").innerHTML = localStorage.getItem("nombre")
+
+function animacion(momento) {
+    tick.actualizar(momento);
 
     panelPrueba.actualizar();
     camara.actualizar();
+    colisionador.actualizar(entidades);
 
-    entidades.map(entidad => entidad.mover());
-    entidades.map(entidad => entidad.animar());
+    entidades.map(entidad => entidad.actualizar());
+
+    entidades.filter(e => {
+        e.vida 
+    })
 
     requestAnimationFrame(animacion);
-
 }
 
 requestAnimationFrame(animacion);

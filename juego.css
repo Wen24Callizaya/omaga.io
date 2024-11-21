@@ -30,7 +30,7 @@ p, h2{
   -webkit-text-stroke: 1.2px black;
 }
 
-.contenedor{
+.contenedor {
   position: absolute;
   left: 0;
   top: 0;
@@ -42,7 +42,7 @@ p, h2{
   background-color: #c8c8c8;
 }
 
-.escenario{
+.escenario {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -53,7 +53,7 @@ p, h2{
   transform: scale(1);
 }
 
-.cuadriculas{
+.cuadriculas {
   position: absolute;
   left: 0;
   top: 0;
@@ -77,52 +77,43 @@ p, h2{
 }
 
 .jugador {
-  --jugador-x: 100px;
-  --jugador-y: 100px;
-  --jugador-ancho: 54px;
-  --jugador-alto: 54px;
-  --jugador-grados: 0deg
+  z-index: 100001;
+  position: relative;
+  --direccion: 0deg;
+  transform: rotate(var(--direccion)) translateY(var(--diferencia));
+}
 
-  & .cuerpo {
-    --x: var(--jugador-x);
-    --y: var(--jugador-y);
-    --ancho: var(--jugador-ancho);
-    --alto: var(--jugador-alto);
-    --grados: var(--jugador-grados);
-  }
-
-  & .torreta {
+.jugador .torreta {
     position: absolute;
     top: 50%;
     left: 50%;
-    height: 64px;
+    height: 54px;
     width: 24px;
 
     background: #aaa;
     border: 4px solid #999;
     border-radius: 4px;
-    z-index: 1;
 
-    transform: translate(-50%, -85%);
-    transition: 60ms;
+    transform-origin: 0% -0%;
+    transform: rotate(calc(var(--direccion) + 270deg)) translate(-50%, -0%);
+    transition: 0ms;
   }
+.jugador .cuerpo {
+  z-index: 100002;
+}
 
-  & .escopeta{
+.jugador .escopeta{
       width: 34.1px;
       background: #999;
       border-radius: 12%;
       padding: 0;
       clip-path: polygon(50% 100%, 0 0, 100% 0); 
-
-    & .fondo {
-        height: 54px;
-        width: 26px;
-        background-color: #aaa;
-        clip-path: polygon(50% 100%, 0 0, 100% 0);
-    }
-
 }
-
+.jugador .escopeta .fondo {
+  height: 54px;
+  width: 26px;
+  background-color: #aaa;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
 }
 
 .camara {
@@ -137,7 +128,6 @@ p, h2{
   width: 100vw;
   
   box-sizing: border-box;
-  border: 2px solid #333;
 
   /*background: 
     linear-gradient(90deg, transparent 0%, transparent 49.9%, black 50%, transparent 50.1%, transparent 100%),
@@ -154,8 +144,8 @@ p, h2{
     top: 93%;
     height: 3.5vh;
     width: 100%;
-    
-    & .barra-nivel{
+}
+.camara .contenedor-barra-nivel .barra-nivel{
       display: grid;
       place-items: center;
       height: 100%;
@@ -164,7 +154,7 @@ p, h2{
       background-color: #2e2e2e80;
     }
 
-    & .texto-nivel{
+.camara .contenedor-barra-nivel .texto-nivel{
         -webkit-text-stroke: 0;
         position: absolute;
         font-size: 12px;
@@ -172,14 +162,13 @@ p, h2{
         z-index: 5;
     }
 
-    & .dos{
+.camara .contenedor-barra-nivel .dos{
         margin: 0 0.5%;
         place-self: center start;
         height: 90%;
         width: 99%;
         background-color: #fbff0080;
     }
-}
 
 .camara .contenedor-nombre-jugador{
     position: fixed;
@@ -187,13 +176,13 @@ p, h2{
     top: 87%;
     height: 4vh;
     width: 100%;
-    & .nombre-jugador{
+}
+.camara .contenedor-nombre-jugador .nombre-jugador{
         display: grid;
         place-items: center;
-    }
 }
 
-.contenedor-armas{
+.contenedor-armas {
   position: fixed;
   left: 0;
   top: 0;
@@ -203,11 +192,11 @@ p, h2{
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 10px;
-
-  & .armas{
+}
+  .contenedor-armas .armas{
     border: 4px solid #635D5F;
   }
-  & .twin{
+  .contenedor-armas .twin{
     overflow: hidden;
     background:linear-gradient(
       #91FAF5 0%,
@@ -215,15 +204,15 @@ p, h2{
       #80CEC0 60%,
       #80CEC0 100%
     );
-
-    & img{
+  }
+    .contenedor-armas .twin img{
       height: 100vh;
       width: 100vh;
       object-fit: cover;
       object-position: -20px -30px;
     }
-  }
-  & .sniper{
+
+  .contenedor-armas .sniper{
     background:linear-gradient(
       #B6FB87 0%,
       #B6FB87 60%,
@@ -231,7 +220,7 @@ p, h2{
       #96CA80 100%
     );
   }
-  & .machine-gun{
+  .contenedor-armas .twin .machine-gun{
     background:linear-gradient(
       #FE9196 0%,
       #FE9196 60%,
@@ -239,7 +228,7 @@ p, h2{
       #CD796F 100%
     );
   }
-  & .flank-guard{
+  .contenedor-armas .twin .flank-guard{
     background:linear-gradient(
       #FAECA5 0%,
       #FAECA5 60%,
@@ -247,4 +236,3 @@ p, h2{
       #D3BD81 100%
     );
   }
-}
